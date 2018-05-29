@@ -39,3 +39,7 @@ typedef struct tablero
 
 void initTablero(tablero *t);	// funcion para iniciar el tablero
 void Resolver(tablero *t);		// inicia a Resolver el tablero
+boolean isOk(tablero *t,int reinaN);		// validar la posicion de la reina
+boolean okFila(tablero *t,int reinaN);		// validamos posicion en la fila
+boolean okColumna(tablero *t,int reinaN);	// validamos la posicion en columna
+boolean okDiagonal(tablero *t, int reinaN);	// validamos la diagonal

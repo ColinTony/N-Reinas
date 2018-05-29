@@ -36,8 +36,8 @@ enum colores{
     WHITE             = 0x0008 | 0x0004 | 0x0002 | 0x0001,
  }colores;
 
-void DibujarTablero(int n);             // Ene sta funcion se dibujara el tablero
+void DibujarTablero(int n);                                    // Ene sta funcion se dibujara el tablero
 void DibujarReina(int x, int y,int fila, int columna);        // esta funcion dibujara la reina
-void setColor(int valorColor);          // funcion para cambiar de color el texto que vayamos a imprimir en pantalla
-void dibujarColumna(int n);             // Esta funcion dibuja la colimna del tablero
-void dibujaBorraR(int fila,int columna,boolean erase);    // Dibujar la reina si es falso borra la reina
+void setColor(int valorColor);                                // funcion para cambiar de color el texto que vayamos a imprimir en pantalla
+void dibujarColumna(int n);                                   // Esta funcion dibuja la colimna del tablero
+void dibujaBorraR(int fila,int columna,boolean erase);        // Dibujar la reina si es falso borra la reina
