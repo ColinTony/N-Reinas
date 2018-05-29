@@ -81,18 +81,21 @@ void dibujaBorraR(int fila,int columna,boolean erase)
 			if(fila == 0)
 			{
 				MoverCursor((columna*7)+3,0);
-				printf("Q");
+				setColor(DARKBLUE);
+				printf("Q");// pintamos reinas
 				return;
 			}
 
 			if(columna == 0)
 			{
 				MoverCursor(3,posY[fila]-1);
-				printf("Q");
+				setColor(DARKBLUE);
+				printf("Q");// pintamos reinas
 				return;
 			}
 			// si ya no se puede symar entonces imprimimos
 			MoverCursor((columna*7)+3,posY[fila]-1);
+			setColor(DARKBLUE);
 			printf("Q");// pintamos reinas
 		}
 	}else

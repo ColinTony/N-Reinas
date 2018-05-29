@@ -31,11 +31,12 @@ void initTablero(tablero *t)
 	}
 	DibujarTablero(t->nReinas); // dibujamos al tablero
 	MoverCursor((t->nReinas)*2,(t->nReinas)*2);	// Colocamos el titulo en la parte inferior del tablero
-	setColor(GREEN);
 	printf("PROBELMA DE LAS N-REINAS CON N = %i",t->nReinas);
-	setColor(WHITE);
+	setColor(CYAN);
+	dibujaBorraR(1,1,FALSE);
 	puts(" "); // salto de linea
+	MoverCursor((t->nReinas)*2,(t->nReinas)*2);	// Colocamos el titulo en la parte inferior del tablero
 	system("Pause");// ingresa una tecla para continuar
 	
-	MoverCursor((t->nReinas)*2,(t->nReinas)*2);	// Colocamos el titulo en la parte inferior del tablero
+
 }
