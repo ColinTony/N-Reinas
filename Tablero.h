@@ -22,8 +22,8 @@ typedef unsigned char boolean;
 // Estructura de la reina. contiene la posicion de cada reina y validacion
 typedef struct reina
 {
-	unsigned int posX;
-	unsigned int posY;
+	int posX;
+	int posY;
 	boolean valido; 
 }reina;
 
@@ -31,7 +31,6 @@ typedef struct reina
 typedef struct tablero
 {
 	int nReinas;	// numero de reinas
-	unsigned int tablero[TAM_MAX][TAM_MAX];	// fila y columna
 	reina reinas[TAM_MAX];
 	boolean isResuleto;	// Bandera
 
