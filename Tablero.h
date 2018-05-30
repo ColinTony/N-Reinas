@@ -23,8 +23,8 @@ typedef unsigned char boolean;
 typedef struct reina
 {
 	int posX;
-	int posY;
-	boolean valido; 
+	int posY; 
+	int numReina;
 }reina;
 
 // Estructura del tablero , contiene las reinas en el
@@ -32,12 +32,12 @@ typedef struct tablero
 {
 	int nReinas;	// numero de reinas
 	reina reinas[TAM_MAX];
-	boolean isResuleto;	// Bandera
-
+	boolean isResuelto;	// Bandera
+	int reinaID;	// identificar las reinas colocadas
 }tablero;
 
 void initTablero(tablero *t);	// funcion para iniciar el tablero
-void Resolver(tablero *t);		// inicia a Resolver el tablero
+boolean Resolver(tablero *t);		// inicia a Resolver el tablero
 boolean isOk(tablero *t,int reinaN);		// validar la posicion de la reina
 boolean okFila(tablero *t,int reinaN);		// validamos posicion en la fila
 boolean okColumna(tablero *t,int reinaN);	// validamos la posicion en columna

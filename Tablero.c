@@ -23,7 +23,7 @@ OBSERVACIONES: El tablero se generara de 4<n<10
 	Observaciones: solo debe permitir valores entre 4<n<10
 */
 void initTablero(tablero *t)
-{
+{	
 	if(t->nReinas < 4 || t->nReinas > 10){
 		puts("DEBES ELEGIR UN VALOR DE 4 < N < 10");
 		exit(0);
@@ -35,86 +35,150 @@ void initTablero(tablero *t)
 	puts(" "); // salto de linea
 	MoverCursor((t->nReinas)*2,(t->nReinas)*2);	// Colocamos el titulo en la parte inferior del tablero
 	system("Pause");// ingresa una tecla para continuar
-	Resolver(t);
+	t->reinas[0].posY = 1;
+	t->reinas[0].posX = 1;
+	t->reinaID = 0; // con este valor identificamos las reinas colocadas
+	Resolver(t); // mandamos la primer reina
 }
 /*
 	void resolver(Tablero *t)
 	Descripción: Se empiezan a dibujar las reinas y a solucionar el problema
+	REcibe : Tablero y la reina en la cual se quedo
 	Devuelve: Void
 	Observaciones: solo debe permitir valores entre 4<n<10
 */
-void Resolver(tablero *t)
+boolean Resolver(tablero *t)
 {
 	int i; // contador
-	int j; // contador 
-	int columP=1; // columna donde se empieza
+	boolean correcto=FALSE;
+	int fila,colum;
+	colum = t->reinaID+1; // la columna en donde vamos
+	t->isResuelto = FALSE; // no se ha isResuelto
 	// probando verficacdor
-	
-	// primera reina
-	dibujaBorraR(2,4,FALSE);
-	t->reinas[0].posX = 4;
-	t->reinas[0].posY = 2;
- 	
- 	// segunda reina
-	dibujaBorraR(2,3,FALSE);
-	t->reinas[1].posX = 3;
-	t->reinas[1].posY = 2;
+	while(t->isResuelto == FALSE)
+	{
+		if((t->reinaID)+1 == t->nReinas)
+			t->isResuelto = TRUE; // ya no quedan reinas que coloca
+		else{
 
-	// TERCERA REINA 2
-	dibujaBorraR(5,1,FALSE); // primero fila , luego columna
-	t->reinas[2].posY = 5;
-	t->reinas[2].posX = 1;
+			for(fila = 1; fila<=t->nReinas; fila++)
+			{
+				// si se puede colocar entonces la ponemos
+				if(isOk(t, t->reinaID))
+				{
+					//MoverCursor(80,10+fila);
+					//printf("contador : %i fila : %i , columna : %i , reina %i ",fila-1 ,fila,colum,t->reinaID);
+					t->reinas[t->reinaID].posY = fila;
+					t->reinas[t->reinaID].posX = colum;
+					dibujaBorraR(fila,colum,FALSE);
 
-	isOk(t,2);
+					// reina siguiente
+					t->reinaID++;
+					t->reinas[t->reinaID].posY = 1;
+					t->reinas[t->reinaID].posX = colum+1; // siguiente columna
+					break;
+				}
+				else
+				{
+					MoverCursor(80,5+fila);
+					printf("contador : %i fila : %i , columna : %i , reina %i ",fila-1 ,fila,colum,t->reinaID);
+					// si  no es correcto el movimiento , entonces avanzamos en la fila
+					dibujaBorraR(fila,colum,FALSE);
+					EsperarMiliSeg(250);
+					dibujaBorraR(fila,colum,TRUE);
+					t->reinas[t->reinaID].posY = fila+1; // avanzamos en la fila
+					t->reinas[t->reinaID].posX = colum;  // siguiente columna
+				
+				}
+			}
+			//MoverCursor(80,5+fila);
+			//printf("finite incantatem ", fila,colum,t->reinaID);
+			Resolver(t);
+			t->isResuelto=TRUE;
+		}
+	}
+	/*
+		// primera reina 0
+		dibujaBorraR(2,4,FALSE);
+		t->reinas[0].posX = 4;
+		t->reinas[0].posY = 2;
+	 	
+	 	// segunda reina 1
+		dibujaBorraR(2,3,FALSE);
+		t->reinas[1].posX = 3;
+		t->reinas[1].posY = 2;
+
+		// TERCERA REINA 2
+		dibujaBorraR(5,6,FALSE); // primero fila , luego columna
+		t->reinas[2].posY = 5;
+		t->reinas[2].posX = 6;
+
+		isOk(t,2);
+	*/
 
 	MoverCursor((t->nReinas)*2,(t->nReinas)*2);	// Colocamos el titulo en la parte inferior del tablero
 	system("Pause");// ingresa una tecla para continuar
 }
-
+/*
+	boolean isOk(tablero *t,int reinaN)
+	Descripción: Verifica de en la fila , columna y la diagonal. Devuelve TRUE si es que 
+	es valida la posicion
+	Recibe: tablero que contiene las reinas puestas , numero de la reina a colocar
+	Devuelve : TRUE si la posicion en la que se intenta colocar es valida
+*/
 boolean isOk(tablero *t,int reinaN)
 {
-	boolean ok=FALSE;
+	boolean ok=TRUE;
 
 	// verificamos fila
 	if(okFila(t,reinaN))
 	{
+		setColor(MAGENTA);
 		MoverCursor(80,0);
 		EsperarMiliSeg(250);
 		printf("VALIDA EN FILA");
 	}
 	else
 	{
+		setColor(MAGENTA);
 		MoverCursor(80,0);
 		EsperarMiliSeg(250);
 		printf("INVALIDA EN FILA");
+		ok = FALSE;
 	}
 
 	if(okColumna(t,reinaN))
 	{
+		setColor(MAGENTA);
 		MoverCursor(80,1);
 		EsperarMiliSeg(250);
 		printf("VALIDA EN COLUMNA");
 	}
 	else
 	{
+		setColor(MAGENTA);
 		MoverCursor(80,1);
 		EsperarMiliSeg(250);
 		printf("INVALIDA EN COLUMNA");
+		ok = FALSE;
 	}
 
 	if(okDiagonal(t,reinaN))
 	{
+		setColor(MAGENTA);
 		MoverCursor(80,2);
 		EsperarMiliSeg(250);
 		printf("VALIDA EN DIAGONAL");
 	}
 	else
 	{
+		setColor(MAGENTA);
 		MoverCursor(80,2);
 		EsperarMiliSeg(250);
 		printf("INVALIDA EN DIAGONAL");
+		ok = FALSE;
 	}
-
+	setColor(CYAN);
 	return	ok; 
 }
 
@@ -171,7 +235,7 @@ boolean okColumna(tablero *t,int reinaN)
 	posicion correcta. Verifica las diagolaes para saber si la reina esta bien colocada
 	diagonalmente , tenemos la condicion de que si la diferencia entre el numero de fila
 	y el numero de la columna es igual a la de otra reina , entonces se encuentran en 
-	la misma diagonal y pasa lo mismo con la suma de la fila y columna 
+	la misma diagonal y pasa lo mismo con la suma de la fila y columna. 
 */
 boolean okDiagonal(tablero *t,int reinaN)
 {
