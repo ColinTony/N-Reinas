@@ -57,7 +57,7 @@ boolean Resolver(tablero *t)
 	// probando verficacdor
 	while(t->isResuelto == FALSE)
 	{
-		if((t->reinaID)+1 == t->nReinas)
+		if((t->reinaID) == t->nReinas)
 			t->isResuelto = TRUE; // ya no quedan reinas que coloca
 		else{
 
@@ -97,24 +97,6 @@ boolean Resolver(tablero *t)
 			t->isResuelto=TRUE;
 		}
 	}
-	/*
-		// primera reina 0
-		dibujaBorraR(2,4,FALSE);
-		t->reinas[0].posX = 4;
-		t->reinas[0].posY = 2;
-	 	
-	 	// segunda reina 1
-		dibujaBorraR(2,3,FALSE);
-		t->reinas[1].posX = 3;
-		t->reinas[1].posY = 2;
-
-		// TERCERA REINA 2
-		dibujaBorraR(5,6,FALSE); // primero fila , luego columna
-		t->reinas[2].posY = 5;
-		t->reinas[2].posX = 6;
-
-		isOk(t,2);
-	*/
 
 	MoverCursor((t->nReinas)*2,(t->nReinas)*2);	// Colocamos el titulo en la parte inferior del tablero
 	system("Pause");// ingresa una tecla para continuar
